@@ -96,7 +96,9 @@ export function Account() {
                       <div className="space-y-6">
                         {order.items.map(item => (
                           <div key={item.id} className="flex gap-6 items-center">
-                            <img src={item.image} alt={item.name} className="w-20 h-20 object-contain bg-slate-50 rounded-2xl p-2 border border-slate-100" />
+                            <div className="w-20 h-20 bg-slate-100 rounded-2xl overflow-hidden shrink-0 border border-slate-200">
+                              <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                            </div>
                             <div className="flex-1">
                               <Link to={`/product/${item.id}`} className="font-bold text-lg hover:text-blue-600 hover:underline">{item.name}</Link>
                               <div className="text-sm font-bold text-slate-400 uppercase tracking-widest mt-1">Qty: {item.quantity}</div>

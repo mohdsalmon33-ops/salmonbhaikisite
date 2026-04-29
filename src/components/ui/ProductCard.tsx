@@ -18,7 +18,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div className="bg-white rounded-3xl shadow-sm hover:shadow-xl transition-all duration-500 border border-slate-200 flex flex-col h-full overflow-hidden group">
-      <Link to={`/product/${product.id}`} className="relative block aspect-square bg-slate-50 overflow-hidden p-6 flex items-center justify-center">
+      <Link to={`/product/${product.id}`} className="relative block aspect-square bg-slate-50 overflow-hidden flex items-center justify-center">
         {product.isRefurbished && (
           <div className="absolute top-4 left-4 bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full z-10 uppercase tracking-widest shadow-sm">
             Refurbished
@@ -43,7 +43,7 @@ export function ProductCard({ product }: ProductCardProps) {
         <img 
           src={product.image} 
           alt={product.name} 
-          className="w-full h-full object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-110"
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           loading="lazy"
         />
       </Link>

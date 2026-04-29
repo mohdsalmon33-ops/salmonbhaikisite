@@ -111,7 +111,7 @@ export const mockProducts: Product[] = [
     name: "OnePlus 12",
     brand: "OnePlus",
     price: 64999,
-    image: "https://images.unsplash.com/photo-1706857185038-06ccb34ba18f?q=80&w=1974&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1678911820864-e2c567c655d7?q=80&w=2070&auto=format&fit=crop",
     specs: {
       ram: "12GB",
       storage: "256GB",
@@ -133,7 +133,7 @@ export const mockProducts: Product[] = [
     name: "Xiaomi 13 Pro",
     brand: "Xiaomi",
     price: 79999,
-    image: "https://images.unsplash.com/photo-1698286915233-872f2d9195d9?q=80&w=2070&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1617727553252-65863c156eb0?q=80&w=2070&auto=format&fit=crop",
     specs: {
       ram: "12GB",
       storage: "256GB",
@@ -156,7 +156,7 @@ export const mockProducts: Product[] = [
     brand: "Motorola",
     price: 18999,
     originalPrice: 22999,
-    image: "https://images.unsplash.com/photo-1696417758652-3d2fbc622fe0?q=80&w=1964&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1600087626014-e652e18bbff2?q=80&w=2070&auto=format&fit=crop",
     specs: {
       ram: "12GB",
       storage: "256GB",
@@ -179,7 +179,7 @@ export const mockProducts: Product[] = [
     brand: "Apple",
     price: 79999,
     originalPrice: 89900,
-    image: "https://images.unsplash.com/photo-1663465374413-83eb11b15118?q=80&w=2070&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?q=80&w=2070&auto=format&fit=crop",
     specs: {
       ram: "6GB",
       storage: "128GB",
@@ -201,7 +201,7 @@ export const mockProducts: Product[] = [
     name: "Samsung Galaxy Z Fold 5",
     brand: "Samsung",
     price: 154999,
-    image: "https://images.unsplash.com/photo-1691176214214-41d3b0704d2e?q=80&w=1974&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1585060544812-6b45742d762f?q=80&w=2070&auto=format&fit=crop",
     specs: {
       ram: "12GB",
       storage: "512GB",
@@ -224,7 +224,7 @@ export const mockProducts: Product[] = [
     brand: "iQOO",
     price: 52999,
     originalPrice: 59999,
-    image: "https://images.unsplash.com/photo-1706857185038-06ccb34ba18f?q=80&w=1974&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=2070&auto=format&fit=crop",
     specs: {
       ram: "12GB",
       storage: "256GB",
@@ -247,7 +247,7 @@ export const mockProducts: Product[] = [
     brand: "Nothing",
     price: 44999,
     originalPrice: 49999,
-    image: "https://images.unsplash.com/photo-1698286915233-872f2d9195d9?q=80&w=2070&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1662947995689-858f2fbac64d?q=80&w=2070&auto=format&fit=crop",
     specs: {
       ram: "12GB",
       storage: "256GB",
@@ -269,7 +269,7 @@ export const mockProducts: Product[] = [
     name: "Poco F5 5G",
     brand: "Poco",
     price: 29999,
-    image: "https://images.unsplash.com/photo-1696417758652-3d2fbc622fe0?q=80&w=1964&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1525598912003-663126343e1f?q=80&w=2070&auto=format&fit=crop",
     specs: {
       ram: "8GB",
       storage: "256GB",
@@ -292,7 +292,7 @@ export const mockProducts: Product[] = [
     brand: "Samsung",
     price: 33999,
     originalPrice: 38999,
-    image: "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?q=80&w=2071&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?q=80&w=2070&auto=format&fit=crop",
     specs: {
       ram: "8GB",
       storage: "128GB",

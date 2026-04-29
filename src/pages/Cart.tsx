@@ -36,8 +36,8 @@ export function Cart() {
             <div className="space-y-6">
               {cart.map(item => (
                 <div key={item.id} className="flex gap-4 md:gap-6 items-start md:items-center pb-6 border-b last:border-0 last:pb-0">
-                  <Link to={`/product/${item.id}`} className="w-24 h-24 bg-gray-50 rounded-xl p-2 shrink-0 border">
-                    <img src={item.image} alt={item.name} className="w-full h-full object-contain mix-blend-multiply" />
+                  <Link to={`/product/${item.id}`} className="w-24 h-24 bg-gray-50 rounded-xl overflow-hidden shrink-0 border block">
+                    <img src={item.image} alt={item.name} className="w-full h-full object-cover rounded-md" />
                   </Link>
                   
                   <div className="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4">

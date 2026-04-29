@@ -129,9 +129,9 @@ export function Checkout() {
             <div className="space-y-4 mb-6">
               {cart.map(item => (
                 <div key={item.id} className="flex gap-4">
-                  <div className="w-20 h-20 bg-white rounded-2xl border border-slate-200 p-2 shrink-0 relative overflow-hidden">
-                    <span className="absolute -top-1 -right-1 bg-slate-800 text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full font-bold shadow-sm">{item.quantity}</span>
-                    <img src={item.image} className="w-full h-full object-contain mix-blend-multiply" />
+                  <div className="w-20 h-20 bg-slate-100 rounded-2xl overflow-hidden shrink-0 relative">
+                    <span className="absolute top-1 right-1 bg-slate-800 text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full font-bold shadow-sm z-10">{item.quantity}</span>
+                    <img src={item.image} className="w-full h-full object-cover" />
                   </div>
                   <div className="flex-1 mt-1">
                     <div className="font-bold text-slate-700 leading-tight line-clamp-2 pr-2">{item.name}</div>

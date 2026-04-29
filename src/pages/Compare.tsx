@@ -50,8 +50,8 @@ export function Compare() {
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
-                  <div className="aspect-[4/3] bg-gray-50 rounded-xl mb-4 p-2 flex items-center justify-center">
-                    <img src={item.image} alt={item.name} className="h-full object-contain mix-blend-multiply" />
+                  <div className="aspect-[4/3] bg-gray-50 rounded-xl mb-4 overflow-hidden flex items-center justify-center">
+                    <img src={item.image} alt={item.name} className="h-full w-full object-cover" />
                   </div>
                   <div className="text-sm text-blue-600 uppercase font-bold tracking-wider mb-1">{item.brand}</div>
                   <h3 className="font-bold text-xl leading-tight mb-2">{item.name}</h3>

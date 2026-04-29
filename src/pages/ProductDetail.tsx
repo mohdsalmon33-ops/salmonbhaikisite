@@ -46,14 +46,14 @@ export function ProductDetail() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
         {/* Product Images */}
         <div className="lg:col-span-5 flex flex-col items-center">
-          <div className="bg-white rounded-[2rem] border border-slate-200 p-8 w-full flex justify-center items-center relative aspect-square shadow-sm overflow-hidden group mb-4">
+          <div className="bg-slate-50 rounded-[2rem] border border-slate-200 p-0 w-full flex justify-center items-center relative aspect-square shadow-sm overflow-hidden group mb-4">
             {product.isRefurbished && (
               <div className="absolute top-6 left-6 bg-green-100 text-green-700 font-bold text-xs uppercase tracking-widest px-4 py-2 rounded-full z-10 shadow-sm">Refurbished</div>
             )}
             <img 
               src={selectedImage} 
               alt={product.name} 
-              className="max-h-full object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-110"
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             />
           </div>
           {product.images && product.images.length > 1 && (
@@ -63,11 +63,11 @@ export function ProductDetail() {
                   key={idx}
                   onClick={() => setSelectedImage(img)}
                   className={cn(
-                    "w-20 h-20 rounded-2xl border-2 flex-shrink-0 overflow-hidden flex items-center justify-center p-2 bg-white transition-all",
+                    "w-20 h-20 rounded-2xl border-2 flex-shrink-0 overflow-hidden flex items-center justify-center p-0 bg-white transition-all",
                     selectedImage === img ? "border-blue-600 shadow-md" : "border-slate-200 hover:border-slate-300 opacity-70 hover:opacity-100"
                   )}
                 >
-                  <img src={img} alt={`Thumbnail ${idx}`} className="max-h-full object-contain mix-blend-multiply" />
+                  <img src={img} alt={`Thumbnail ${idx}`} className="w-full h-full object-cover" />
                 </button>
               ))}
             </div>
@@ -286,14 +286,14 @@ export function ProductDetail() {
           <div className="flex flex-col lg:flex-row gap-8 items-center lg:items-stretch">
             
             <div className="flex flex-wrap items-center justify-center gap-6 flex-1">
-              <div className="w-32 h-32 bg-white rounded-3xl border border-slate-200 p-4 flex shrink-0 shadow-sm relative group overflow-hidden">
-                <img src={product.image} className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" />
+              <div className="w-32 h-32 bg-slate-50 rounded-3xl border border-slate-200 p-0 flex shrink-0 shadow-sm relative group overflow-hidden">
+                <img src={product.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
               </div>
               <Plus className="text-slate-300 w-8 h-8" />
               {compatibleAccessories.slice(0, 2).map((item, idx) => (
                 <React.Fragment key={item.id}>
-                  <div className="w-32 h-32 bg-white rounded-3xl border border-slate-200 p-4 flex shrink-0 shadow-sm relative group overflow-hidden cursor-pointer" title={item.name}>
-                    <img src={item.image} className="w-full h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500" />
+                  <div className="w-32 h-32 bg-slate-50 rounded-3xl border border-slate-200 p-0 flex shrink-0 shadow-sm relative group overflow-hidden cursor-pointer" title={item.name}>
+                    <img src={item.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                   </div>
                   {idx === 0 && compatibleAccessories.length > 1 && <Plus className="text-slate-300 w-8 h-8" />}
                 </React.Fragment>
