@@ -19,7 +19,7 @@ export function Navbar() {
   };
 
   return (
-    <nav className="h-16 bg-white border-b border-slate-200 sticky top-0 z-50 flex-shrink-0 font-sans">
+    <nav className="h-16 bg-white/40 backdrop-blur-2xl border-b border-white/50 sticky top-0 z-50 flex-shrink-0 font-sans shadow-sm">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 h-full">
         <div className="flex justify-between h-full items-center">
           {/* Logo */}

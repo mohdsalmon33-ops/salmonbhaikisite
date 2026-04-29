@@ -6,3 +6,33 @@
   --font-mono: ui-monospace, SFMono-Regular, monospace;
 }
 
+@layer utilities {
+  .glass-panel {
+    @apply bg-white/40 backdrop-blur-3xl border border-white/60 shadow-[8px_8px_24px_rgba(180,190,210,0.4),-8px_-8px_24px_rgba(255,255,255,0.8)];
+  }
+  .glass-card {
+    @apply bg-white/40 backdrop-blur-2xl border border-white/50 shadow-[10px_10px_30px_rgba(180,190,210,0.5),-10px_-10px_30px_rgba(255,255,255,0.9)];
+  }
+  .btn-neumorphic {
+    @apply shadow-[inset_2px_2px_5px_rgba(255,255,255,0.8),inset_-2px_-2px_5px_rgba(0,0,0,0.05),4px_4px_10px_rgba(180,190,210,0.4),-4px_-4px_10px_rgba(255,255,255,0.9)];
+  }
+  .btn-neumorphic:active {
+    @apply shadow-[inset_4px_4px_8px_rgba(0,0,0,0.05),inset_-4px_-4px_8px_rgba(255,255,255,0.8)];
+  }
+  
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}

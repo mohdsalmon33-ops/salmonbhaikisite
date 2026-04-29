@@ -12,6 +12,8 @@ export function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState<'specs' | 'reviews' | 'qa'>('specs');
   const [selectedImage, setSelectedImage] = useState(product?.image || '');
+  const [selectedRam, setSelectedRam] = useState(product?.specs?.ram || '8GB');
+  const [selectedStorage, setSelectedStorage] = useState(product?.specs?.storage || '128GB');
   
   const { addToCart, toggleWishlist, wishlist, addToCompare, compareList, addRecentlyViewed } = useStore();
 
@@ -29,6 +31,35 @@ export function ProductDetail() {
       </div>
     );
   }
+
+  const ramTiers: Record<string, number> = {'8GB': 0, '12GB': 8000, '16GB': 15000};
+  const storageTiers: Record<string, number> = {'128GB': 0, '256GB': 10000, '512GB': 25000, '1TB': 45000};
+
+  const baseRamVal = ramTiers[product.specs?.ram || '8GB'] || 0;
+  const baseStorageVal = storageTiers[product.specs?.storage || '128GB'] || 0;
+
+  const currentRamVal = ramTiers[selectedRam] || baseRamVal;
+  const currentStorageVal = storageTiers[selectedStorage] || baseStorageVal;
+
+  const extraPrice = Math.max(0, currentRamVal - baseRamVal) + Math.max(0, currentStorageVal - baseStorageVal);
+  const finalPrice = product.price + extraPrice;
+  const finalOriginalPrice = product.originalPrice ? product.originalPrice + extraPrice : null;
+
+  const availableRams = ['8GB', '12GB', '16GB'].filter(r => (ramTiers[r] || 0) >= baseRamVal);
+  const availableStorages = ['128GB', '256GB', '512GB', '1TB'].filter(s => (storageTiers[s] || 0) >= baseStorageVal);
+
+  const customizedProduct = {
+    ...product,
+    id: `${product.id}-${selectedRam.replace('GB','')}-${selectedStorage.replace('GB','')}`,
+    name: `${product.name} (${selectedRam}, ${selectedStorage})`,
+    price: finalPrice,
+    originalPrice: finalOriginalPrice ? finalOriginalPrice : undefined,
+    specs: {
+      ...product.specs,
+      ram: selectedRam,
+      storage: selectedStorage
+    }
+  };
 
   const isWishlisted = wishlist.some(item => item.id === product.id);
   const isCompared = compareList.some(item => item.id === product.id);
@@ -97,9 +128,9 @@ export function ProductDetail() {
 
           <div className="mb-8 p-6 bg-slate-50 border border-slate-100 rounded-3xl">
             <div className="flex items-end gap-3 mb-2">
-              <span className="text-5xl font-black text-slate-900 tracking-tighter">₹{product.price.toLocaleString('en-IN')}</span>
-              {product.originalPrice && (
-                <span className="text-xl text-slate-400 line-through font-medium mb-1 relative top-[-4px]">₹{product.originalPrice.toLocaleString('en-IN')}</span>
+              <span className="text-5xl font-black text-slate-900 tracking-tighter">₹{finalPrice.toLocaleString('en-IN')}</span>
+              {finalOriginalPrice && (
+                <span className="text-xl text-slate-400 line-through font-medium mb-1 relative top-[-4px]">₹{finalOriginalPrice.toLocaleString('en-IN')}</span>
               )}
             </div>
             <p className="text-xs font-bold text-slate-500 uppercase tracking-widest flex items-center mt-4"><CheckCircle2 className="w-4 h-4 text-green-500 mr-2"/> Inclusive of all taxes</p>
@@ -109,6 +140,53 @@ export function ProductDetail() {
             {product.description}
           </p>
 
+          {/* Configuration Options */}
+          <div className="mb-8 space-y-6">
+            {availableRams.length > 1 && (
+              <div>
+                <h3 className="text-sm font-bold text-slate-800 uppercase tracking-widest mb-3">Memory (RAM)</h3>
+                <div className="flex flex-wrap gap-3">
+                  {availableRams.map(ram => (
+                    <button
+                      key={ram}
+                      onClick={() => setSelectedRam(ram)}
+                      className={cn(
+                        "px-6 py-3 rounded-xl border-2 font-bold text-sm transition-all duration-300",
+                        selectedRam === ram 
+                          ? "border-blue-600 text-blue-600 bg-blue-50 shadow-[0_0_15px_rgba(37,99,235,0.15)]" 
+                          : "border-slate-200 text-slate-600 hover:border-slate-300 bg-white"
+                      )}
+                    >
+                      {ram}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            {availableStorages.length > 1 && (
+              <div>
+                <h3 className="text-sm font-bold text-slate-800 uppercase tracking-widest mb-3">Storage</h3>
+                <div className="flex flex-wrap gap-3">
+                  {availableStorages.map(storage => (
+                    <button
+                      key={storage}
+                      onClick={() => setSelectedStorage(storage)}
+                      className={cn(
+                        "px-6 py-3 rounded-xl border-2 font-bold text-sm transition-all duration-300",
+                        selectedStorage === storage 
+                          ? "border-blue-600 text-blue-600 bg-blue-50 shadow-[0_0_15px_rgba(37,99,235,0.15)]" 
+                          : "border-slate-200 text-slate-600 hover:border-slate-300 bg-white"
+                      )}
+                    >
+                      {storage}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
           <div className="flex flex-wrap items-center gap-4 mb-10">
             <div className="flex border-2 border-slate-200 rounded-2xl overflow-hidden w-fit shadow-sm bg-white">
               <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="px-5 py-4 bg-slate-50 hover:bg-slate-100 text-slate-600 transition-colors"><Minus className="w-4 h-4" /></button>
@@ -117,7 +195,7 @@ export function ProductDetail() {
             </div>
 
             <button 
-              onClick={() => addToCart(product, quantity)}
+              onClick={() => addToCart(customizedProduct, quantity)}
               disabled={product.stockStatus === 'Out of stock'}
               className={cn(
                 "flex-1 md:flex-none flex justify-center items-center gap-3 px-10 py-5 rounded-2xl font-bold text-white transition-all duration-300",
