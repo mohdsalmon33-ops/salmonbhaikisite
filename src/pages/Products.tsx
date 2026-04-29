@@ -10,6 +10,8 @@ export function Products() {
 
   const [filters, setFilters] = useState({
     brands: [] as string[],
+    ram: [] as string[],
+    storage: [] as string[],
     priceRange: 200000,
     has5G: false,
   });
@@ -17,19 +19,23 @@ export function Products() {
   const [showFilters, setShowFilters] = useState(false);
 
   const brands = Array.from(new Set(mockProducts.map(p => p.brand)));
+  const rams = Array.from(new Set(mockProducts.map(p => p.specs.ram))).sort();
+  const storages = Array.from(new Set(mockProducts.map(p => p.specs.storage))).sort();
 
-  const handleBrandChange = (brand: string) => {
+  const handleCheckboxChange = (type: 'brands' | 'ram' | 'storage', value: string) => {
     setFilters(prev => ({
       ...prev,
-      brands: prev.brands.includes(brand) 
-        ? prev.brands.filter(b => b !== brand)
-        : [...prev.brands, brand]
+      [type]: prev[type].includes(value) 
+        ? prev[type].filter(item => item !== value)
+        : [...prev[type], value]
     }));
   };
 
   const filteredProducts = mockProducts.filter(p => {
     if (searchQ && !p.name.toLowerCase().includes(searchQ) && !p.brand.toLowerCase().includes(searchQ)) return false;
     if (filters.brands.length > 0 && !filters.brands.includes(p.brand)) return false;
+    if (filters.ram.length > 0 && !filters.ram.includes(p.specs.ram)) return false;
+    if (filters.storage.length > 0 && !filters.storage.includes(p.specs.storage)) return false;
     if (p.price > filters.priceRange) return false;
     if (filters.has5G && !p.specs.is5G) return false;
     return true;
@@ -64,9 +70,43 @@ export function Products() {
                       type="checkbox" 
                       className="rounded text-blue-600 focus:ring-blue-500 w-4 h-4"
                       checked={filters.brands.includes(brand)}
-                      onChange={() => handleBrandChange(brand)}
+                      onChange={() => handleCheckboxChange('brands', brand)}
                     />
                     <span className="text-gray-700 group-hover:text-blue-600">{brand}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <h3 className="font-semibold mb-3 text-sm uppercase text-gray-500 tracking-wider">RAM</h3>
+              <div className="space-y-2">
+                {rams.map(ram => (
+                  <label key={ram} className="flex items-center gap-2 cursor-pointer group">
+                    <input 
+                      type="checkbox" 
+                      className="rounded text-blue-600 focus:ring-blue-500 w-4 h-4"
+                      checked={filters.ram.includes(ram)}
+                      onChange={() => handleCheckboxChange('ram', ram)}
+                    />
+                    <span className="text-gray-700 group-hover:text-blue-600">{ram}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <h3 className="font-semibold mb-3 text-sm uppercase text-gray-500 tracking-wider">Storage</h3>
+              <div className="space-y-2">
+                {storages.map(storage => (
+                  <label key={storage} className="flex items-center gap-2 cursor-pointer group">
+                    <input 
+                      type="checkbox" 
+                      className="rounded text-blue-600 focus:ring-blue-500 w-4 h-4"
+                      checked={filters.storage.includes(storage)}
+                      onChange={() => handleCheckboxChange('storage', storage)}
+                    />
+                    <span className="text-gray-700 group-hover:text-blue-600">{storage}</span>
                   </label>
                 ))}
               </div>
@@ -100,7 +140,7 @@ export function Products() {
             </div>
             
             <button 
-              onClick={() => setFilters({ brands: [], priceRange: 200000, has5G: false })}
+              onClick={() => setFilters({ brands: [], ram: [], storage: [], priceRange: 200000, has5G: false })}
               className="w-full py-2 text-sm text-red-600 font-medium hover:bg-red-50 rounded"
             >
               Clear Filters

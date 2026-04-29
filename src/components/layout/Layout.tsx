@@ -8,6 +8,7 @@ import React from 'react';
 export function Layout() {
   const cartItemCount = useStore(state => state.cart.reduce((acc, item) => acc + item.quantity, 0));
   const location = useLocation();
+  const [showChat, setShowChat] = React.useState(false);
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 font-sans text-slate-900">
@@ -18,13 +19,29 @@ export function Layout() {
       <Footer />
 
       {/* Live Chat Trigger */}
-      <div className="fixed bottom-20 md:bottom-8 right-4 md:right-8 z-50">
-        <button className="flex items-center justify-center md:justify-start gap-3 bg-blue-600 text-white p-4 md:pl-4 md:pr-6 md:py-3 rounded-full shadow-2xl hover:bg-blue-700 transition-colors group">
+      <div className="fixed bottom-20 md:bottom-8 right-4 md:right-8 z-50 flex flex-col items-end">
+        {showChat && (
+          <div className="bg-white rounded-[2rem] shadow-2xl border border-slate-100 w-80 h-96 mb-4 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5">
+            <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-6 text-white pb-8">
+              <h3 className="font-extrabold text-lg tracking-tight">MobiSupport</h3>
+              <p className="text-xs font-medium text-blue-100 mt-1">Usually replies in a few minutes</p>
+            </div>
+            <div className="flex-1 p-5 bg-slate-50 flex flex-col justify-end -mt-4 rounded-t-3xl border-t border-slate-100">
+              <div className="bg-white p-4 rounded-2xl rounded-tl-sm shadow-sm text-sm text-slate-700 w-fit max-w-[85%] border border-slate-100 font-medium leading-relaxed">
+                Hi there! 👋 How can we help you choose your next device?
+              </div>
+            </div>
+            <div className="p-4 bg-white border-t border-slate-100">
+              <input type="text" placeholder="Type your message..." className="w-full bg-slate-50 px-5 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 font-medium" />
+            </div>
+          </div>
+        )}
+        <button onClick={() => setShowChat(!showChat)} className="flex items-center justify-center md:justify-start gap-3 bg-blue-600 text-white p-4 md:pl-4 md:pr-6 md:py-3 rounded-full shadow-lg shadow-blue-600/30 hover:bg-blue-700 hover:scale-[1.02] active:scale-[0.98] transition-all group">
           <div className="relative">
              <MessageCircle className="w-6 h-6" />
-             <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 border-2 border-blue-600 rounded-full"></span>
+             {!showChat && <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 border-2 border-blue-600 rounded-full"></span>}
           </div>
-          <span className="hidden md:inline font-bold text-sm tracking-tight">Chat with us</span>
+          <span className="hidden md:inline font-bold text-sm tracking-tight">{showChat ? 'Close Chat' : 'Chat with us'}</span>
         </button>
       </div>
 
@@ -47,7 +64,7 @@ export function Layout() {
             </span>
           )}
         </Link>
-        <Link to="/account/orders" className={`flex flex-col items-center p-1 ${location.pathname.startsWith('/account') ? 'text-blue-600' : 'text-slate-400 hover:text-slate-600'}`}>
+        <Link to="/account" className={`flex flex-col items-center p-1 ${location.pathname.startsWith('/account') ? 'text-blue-600' : 'text-slate-400 hover:text-slate-600'}`}>
           <User className="w-6 h-6" />
           <span className="text-[10px] mt-1 font-bold">Account</span>
         </Link>

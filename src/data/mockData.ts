@@ -5,6 +5,7 @@ export interface Product {
   price: number;
   originalPrice?: number;
   image: string;
+  images?: string[];
   specs: {
     ram: string;
     storage: string;
@@ -30,6 +31,11 @@ export const mockProducts: Product[] = [
     price: 134900,
     originalPrice: 144900,
     image: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?q=80&w=2070&auto=format&fit=crop",
+    images: [
+      "https://images.unsplash.com/photo-1695048133142-1a20484d2569?q=80&w=2070&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1695048043685-ec75704d9c79?q=80&w=2070&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1695393165203-8dcf0fb46c98?q=80&w=2070&auto=format&fit=crop"
+    ],
     specs: {
       ram: "8GB",
       storage: "256GB",
@@ -52,6 +58,11 @@ export const mockProducts: Product[] = [
     brand: "Samsung",
     price: 129999,
     image: "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?q=80&w=2071&auto=format&fit=crop",
+    images: [
+      "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?q=80&w=2071&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1610945265064-3234dac222ce?q=80&w=2070&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1610945264803-c22b62d2a7b3?q=80&w=2070&auto=format&fit=crop"
+    ],
     specs: {
       ram: "12GB",
       storage: "512GB",
@@ -75,6 +86,10 @@ export const mockProducts: Product[] = [
     price: 106999,
     originalPrice: 116999,
     image: "https://images.unsplash.com/photo-1696446700854-e6df5b91a0cc?q=80&w=2070&auto=format&fit=crop",
+    images: [
+      "https://images.unsplash.com/photo-1696446700854-e6df5b91a0cc?q=80&w=2070&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1696446701831-29471f28b756?q=80&w=2070&auto=format&fit=crop"
+    ],
     specs: {
       ram: "12GB",
       storage: "128GB",

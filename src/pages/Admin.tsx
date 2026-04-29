@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useStore } from '../store/useStore';
 import { mockProducts } from '../data/mockData';
-import { LayoutDashboard, Package, ShoppingBag, Users, Edit, Trash } from 'lucide-react';
+import { LayoutDashboard, Package, ShoppingBag, Users, Edit, Trash, Tag } from 'lucide-react';
 
 export function Admin() {
   const { orders } = useStore();
@@ -28,19 +28,22 @@ export function Admin() {
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-gray-50 font-sans text-slate-800">
       {/* Sidebar */}
-      <div className="w-64 bg-gray-900 text-white min-h-screen p-4 hidden md:block shrink-0">
-        <h2 className="text-xl font-bold tracking-tight mb-8 px-4 flex items-center"><LayoutDashboard className="mr-2" /> MobiStore Admin</h2>
+      <div className="w-64 bg-slate-900 text-white min-h-screen p-6 hidden md:block shrink-0">
+        <h2 className="text-xl font-black tracking-tight mb-8 flex items-center gap-3"><LayoutDashboard className="w-6 h-6 text-blue-400" /> MobiStore Admin</h2>
         <nav className="space-y-2">
-          <button onClick={() => setActiveTab('dashboard')} className={`w-full flex items-center px-4 py-3 rounded-xl transition ${activeTab === 'dashboard' ? 'bg-blue-600' : 'hover:bg-gray-800'}`}>
+          <button onClick={() => setActiveTab('dashboard')} className={`w-full flex items-center px-4 py-3 rounded-xl transition font-medium ${activeTab === 'dashboard' ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}>
             <LayoutDashboard className="w-5 h-5 mr-3" /> Dashboard
           </button>
-          <button onClick={() => setActiveTab('products')} className={`w-full flex items-center px-4 py-3 rounded-xl transition ${activeTab === 'products' ? 'bg-blue-600' : 'hover:bg-gray-800'}`}>
+          <button onClick={() => setActiveTab('products')} className={`w-full flex items-center px-4 py-3 rounded-xl transition font-medium ${activeTab === 'products' ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}>
             <Package className="w-5 h-5 mr-3" /> Products
           </button>
-          <button onClick={() => setActiveTab('orders')} className={`w-full flex items-center px-4 py-3 rounded-xl transition ${activeTab === 'orders' ? 'bg-blue-600' : 'hover:bg-gray-800'}`}>
+          <button onClick={() => setActiveTab('orders')} className={`w-full flex items-center px-4 py-3 rounded-xl transition font-medium ${activeTab === 'orders' ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}>
             <ShoppingBag className="w-5 h-5 mr-3" /> Orders
+          </button>
+          <button onClick={() => setActiveTab('discounts')} className={`w-full flex items-center px-4 py-3 rounded-xl transition font-medium ${activeTab === 'discounts' ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}>
+            <Tag className="w-5 h-5 mr-3" /> Discounts
           </button>
         </nav>
       </div>
@@ -134,6 +137,50 @@ export function Admin() {
                 {orders.length === 0 && (
                   <tr><td colSpan={5} className="p-8 text-center text-gray-500 text-sm">No orders found.</td></tr>
                 )}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {activeTab === 'discounts' && (
+          <div className="bg-white border rounded-2xl shadow-sm overflow-hidden p-6">
+            <h2 className="text-xl font-bold mb-6">Manage Discounts & Promo Codes</h2>
+            
+            <div className="flex gap-4 mb-8">
+              <input type="text" placeholder="Promo Code (e.g., FESTIVE10)" className="flex-1 border px-4 py-2 rounded-xl" />
+              <input type="number" placeholder="Discount %" className="w-32 border px-4 py-2 rounded-xl" />
+              <button className="bg-blue-600 text-white px-6 py-2 rounded-xl font-bold">Create Code</button>
+            </div>
+
+            <table className="w-full text-left">
+              <thead className="bg-slate-50 text-slate-500 text-xs uppercase font-semibold">
+                <tr>
+                  <th className="p-4">Code</th>
+                  <th className="p-4">Discount</th>
+                  <th className="p-4">Status</th>
+                  <th className="p-4">Uses</th>
+                  <th className="p-4">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                <tr>
+                  <td className="p-4 font-bold">WELCOME10</td>
+                  <td className="p-4">10% Off</td>
+                  <td className="p-4"><span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-bold">Active</span></td>
+                  <td className="p-4">1,245</td>
+                  <td className="p-4">
+                    <button className="text-red-600 hover:bg-red-50 p-2 rounded"><Trash className="w-4 h-4"/></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="p-4 font-bold">DIWALI20</td>
+                  <td className="p-4">20% Off</td>
+                  <td className="p-4"><span className="bg-slate-100 text-slate-500 px-2 py-1 rounded text-xs font-bold">Expired</span></td>
+                  <td className="p-4">8,902</td>
+                  <td className="p-4">
+                    <button className="text-red-600 hover:bg-red-50 p-2 rounded"><Trash className="w-4 h-4"/></button>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>

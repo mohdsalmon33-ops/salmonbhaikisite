@@ -124,38 +124,49 @@ export function Checkout() {
 
         {/* Order Summary Side */}
         <div className="lg:w-96 shrink-0">
-          <div className="bg-gray-50 p-6 md:p-8 rounded-3xl sticky top-24 border border-gray-200">
-            <h2 className="text-xl font-bold mb-6">Order Summary</h2>
+          <div className="bg-slate-50 p-6 md:p-8 rounded-[2rem] sticky top-24 border border-slate-200">
+            <h2 className="text-xl font-black mb-6 tracking-tight text-slate-800">Order Summary</h2>
             <div className="space-y-4 mb-6">
               {cart.map(item => (
                 <div key={item.id} className="flex gap-4">
-                  <div className="w-16 h-16 bg-white rounded-lg border p-1 shrink-0 relative">
-                    <span className="absolute -top-2 -right-2 bg-gray-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full font-bold">{item.quantity}</span>
-                    <img src={item.image} className="w-full h-full object-contain" />
+                  <div className="w-20 h-20 bg-white rounded-2xl border border-slate-200 p-2 shrink-0 relative overflow-hidden">
+                    <span className="absolute -top-1 -right-1 bg-slate-800 text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full font-bold shadow-sm">{item.quantity}</span>
+                    <img src={item.image} className="w-full h-full object-contain mix-blend-multiply" />
                   </div>
-                  <div className="flex-1">
-                    <div className="font-medium text-sm line-clamp-1">{item.name}</div>
-                    <div className="font-bold text-sm mt-1">₹{(item.price * item.quantity).toLocaleString()}</div>
+                  <div className="flex-1 mt-1">
+                    <div className="font-bold text-slate-700 leading-tight line-clamp-2 pr-2">{item.name}</div>
+                    <div className="font-black text-slate-900 mt-2">₹{(item.price * item.quantity).toLocaleString()}</div>
                   </div>
                 </div>
               ))}
             </div>
             
-            <div className="border-t border-gray-200 pt-4 space-y-3 text-sm">
-              <div className="flex justify-between"><span className="text-gray-500">Subtotal</span><span className="font-medium">₹{subtotal.toLocaleString()}</span></div>
-              <div className="flex justify-between"><span className="text-gray-500">Tax</span><span className="font-medium">₹{tax.toLocaleString()}</span></div>
-              <div className="flex justify-between border-t pt-3 mt-3"><span className="font-bold text-lg">Total</span><span className="font-black text-2xl">₹{total.toLocaleString()}</span></div>
+            <div className="mb-6 pb-6 border-b border-slate-200">
+              <label className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">Promo Code</label>
+              <div className="flex gap-2">
+                <input type="text" placeholder="Enter FESTIVE10" className="flex-1 bg-white border border-slate-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 font-bold text-slate-700 uppercase" />
+                <button type="button" className="bg-slate-900 text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-black transition-colors">Apply</button>
+              </div>
+            </div>
+            
+            <div className="space-y-4 text-sm font-medium text-slate-600">
+              <div className="flex justify-between"><span>Subtotal</span><span className="font-bold text-slate-800">₹{subtotal.toLocaleString()}</span></div>
+              <div className="flex justify-between"><span>Tax</span><span className="font-bold text-slate-800">₹{tax.toLocaleString()}</span></div>
+              <div className="flex justify-between border-t border-slate-200 pt-4 mt-4 items-center">
+                <span className="font-bold text-slate-400 uppercase tracking-widest text-xs">Total</span>
+                <span className="font-black text-3xl text-slate-900">₹{total.toLocaleString()}</span>
+              </div>
             </div>
 
             <button 
               type="submit" 
               form="checkout-form"
               disabled={isProcessing}
-              className="w-full bg-blue-600 text-white py-4 rounded-full font-bold mt-8 shadow-lg hover:bg-blue-700 hover:shadow-blue-200 transition-all active:scale-95 flex items-center justify-center"
+              className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold mt-8 shadow-lg hover:bg-blue-700 active:scale-[0.98] transition-all flex items-center justify-center uppercase tracking-widest text-sm"
             >
               {isProcessing ? 'Processing...' : `Pay ₹${total.toLocaleString()}`}
             </button>
-            <p className="text-xs text-center text-gray-500 mt-4 flex items-center justify-center gap-1">
+            <p className="text-[10px] font-bold text-center text-slate-400 mt-4 flex items-center justify-center gap-1 uppercase tracking-widest">
               <Lock className="w-3 h-3" /> Secure AES-256 Encryption
             </p>
           </div>

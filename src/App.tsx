@@ -11,7 +11,7 @@ import { ProductDetail } from './pages/ProductDetail';
 import { Cart } from './pages/Cart';
 import { Checkout } from './pages/Checkout';
 import { Compare } from './pages/Compare';
-import { OrderHistory } from './pages/OrderHistory';
+import { Account } from './pages/Account';
 import { OrderTracking } from './pages/OrderTracking';
 import { Refurbished } from './pages/Refurbished';
 import { TradeIn } from './pages/TradeIn';
@@ -35,7 +35,7 @@ export default function App() {
           <Route path="checkout" element={<Checkout />} />
           <Route path="compare" element={<Compare />} />
           <Route path="wishlist" element={<Wishlist />} />
-          <Route path="account/orders" element={<OrderHistory />} />
+          <Route path="account/*" element={<Account />} />
           <Route path="order-tracking" element={<OrderTracking />} />
           <Route path="refurbished" element={<Refurbished />} />
           <Route path="trade-in" element={<TradeIn />} />

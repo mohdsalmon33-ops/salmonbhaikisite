@@ -18,6 +18,7 @@ interface StoreState {
   cart: CartItem[];
   wishlist: Product[];
   compareList: Product[];
+  recentlyViewed: Product[];
   orders: Order[];
   user: { id: string; name: string } | null;
   addToCart: (product: Product, quantity?: number) => void;
@@ -28,6 +29,7 @@ interface StoreState {
   addToCompare: (product: Product) => void;
   removeFromCompare: (productId: string) => void;
   clearCompare: () => void;
+  addRecentlyViewed: (product: Product) => void;
   addOrder: (order: Order) => void;
   login: (name: string) => void;
   logout: () => void;
@@ -39,6 +41,7 @@ export const useStore = create<StoreState>()(
       cart: [],
       wishlist: [],
       compareList: [],
+      recentlyViewed: [],
       orders: [],
       user: null,
 
@@ -79,6 +82,11 @@ export const useStore = create<StoreState>()(
       })),
 
       clearCompare: () => set({ compareList: [] }),
+
+      addRecentlyViewed: (product) => set((state) => {
+        const filtered = state.recentlyViewed.filter(p => p.id !== product.id);
+        return { recentlyViewed: [product, ...filtered].slice(0, 10) };
+      }),
 
       addOrder: (order) => set((state) => ({
         orders: [order, ...state.orders]

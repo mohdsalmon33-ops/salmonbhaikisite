@@ -11,8 +11,15 @@ export function ProductDetail() {
   const product = mockProducts.find(p => p.id === baseId);
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState<'specs' | 'reviews' | 'qa'>('specs');
+  const [selectedImage, setSelectedImage] = useState(product?.image || '');
   
-  const { addToCart, toggleWishlist, wishlist, addToCompare, compareList } = useStore();
+  const { addToCart, toggleWishlist, wishlist, addToCompare, compareList, addRecentlyViewed } = useStore();
+
+  React.useEffect(() => {
+    if (product) {
+      addRecentlyViewed(product);
+    }
+  }, [product, addRecentlyViewed]);
   
   if (!product) {
     return (
@@ -39,16 +46,32 @@ export function ProductDetail() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
         {/* Product Images */}
         <div className="lg:col-span-5 flex flex-col items-center">
-          <div className="bg-white rounded-[2rem] border border-slate-200 p-8 w-full flex justify-center items-center relative aspect-square shadow-sm overflow-hidden group">
+          <div className="bg-white rounded-[2rem] border border-slate-200 p-8 w-full flex justify-center items-center relative aspect-square shadow-sm overflow-hidden group mb-4">
             {product.isRefurbished && (
               <div className="absolute top-6 left-6 bg-green-100 text-green-700 font-bold text-xs uppercase tracking-widest px-4 py-2 rounded-full z-10 shadow-sm">Refurbished</div>
             )}
             <img 
-              src={product.image} 
+              src={selectedImage} 
               alt={product.name} 
               className="max-h-full object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-110"
             />
           </div>
+          {product.images && product.images.length > 1 && (
+            <div className="flex gap-4 overflow-x-auto hide-scrollbar w-full py-2">
+              {product.images.map((img, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setSelectedImage(img)}
+                  className={cn(
+                    "w-20 h-20 rounded-2xl border-2 flex-shrink-0 overflow-hidden flex items-center justify-center p-2 bg-white transition-all",
+                    selectedImage === img ? "border-blue-600 shadow-md" : "border-slate-200 hover:border-slate-300 opacity-70 hover:opacity-100"
+                  )}
+                >
+                  <img src={img} alt={`Thumbnail ${idx}`} className="max-h-full object-contain mix-blend-multiply" />
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Product Info */}

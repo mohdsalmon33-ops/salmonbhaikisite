@@ -4,8 +4,11 @@ import { mockProducts } from '../data/mockData';
 import { ProductCard } from '../components/ui/ProductCard';
 import React from 'react';
 
+import { useStore } from '../store/useStore';
+
 export function Home() {
   const featured = mockProducts.slice(0, 4);
+  const { recentlyViewed } = useStore();
 
   return (
     <div className="max-w-[1200px] mx-auto px-4 py-8 md:py-12 font-sans text-slate-900 flex flex-col gap-12">
@@ -188,6 +191,45 @@ export function Home() {
           ))}
         </div>
       </section>
+
+      {/* New Arrivals List */}
+      <section className="mt-4 md:mt-8">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <span className="w-2 h-6 bg-purple-600 rounded-full"></span>
+            <h2 className="text-2xl font-bold tracking-tight text-slate-900">New Arrivals</h2>
+          </div>
+          <Link to="/products" className="text-purple-600 text-sm font-bold hover:underline flex items-center">
+            View All <ArrowRight className="w-4 h-4 ml-1" />
+          </Link>
+        </div>
+        
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          {mockProducts.slice(4, 8).map(product => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      </section>
+
+      {/* Recently Viewed */}
+      {recentlyViewed.length > 0 && (
+        <section className="mt-4 md:mt-8">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-3">
+              <span className="w-2 h-6 bg-slate-400 rounded-full"></span>
+              <h2 className="text-2xl font-bold tracking-tight text-slate-900">Recently Viewed</h2>
+            </div>
+          </div>
+          
+          <div className="flex gap-4 md:gap-6 overflow-x-auto hide-scrollbar pb-4">
+            {recentlyViewed.map(product => (
+              <div key={product.id} className="min-w-[200px] md:min-w-[280px]">
+                <ProductCard product={product} />
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

@@ -67,7 +67,7 @@ export function Navbar() {
 
               <div className="w-px h-6 bg-slate-200 mx-2"></div>
 
-              <Link to={user ? "/account/orders" : "/login"} className="flex items-center gap-2 hover:bg-slate-100 p-1 pr-3 rounded-full transition-colors">
+              <Link to={user ? "/account" : "/login"} className="flex items-center gap-2 hover:bg-slate-100 p-1 pr-3 rounded-full transition-colors">
                 <div className="w-8 h-8 rounded-full bg-slate-200 border-2 border-white shadow-sm flex items-center justify-center overflow-hidden">
                    <User className="w-4 h-4 text-slate-500" />
                 </div>
