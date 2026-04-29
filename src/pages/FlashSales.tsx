@@ -20,20 +20,16 @@ export function FlashSales() {
   // Apply fake discount for demo
   const flashProducts = mockProducts.slice(0,4).map(p => ({
     ...p,
+    id: p.id + '-flash', // keep separate from full price items
     originalPrice: p.price,
     price: Math.floor(p.price * 0.8), // 20% off
   }));
 
   return (
-    <div className="bg-gray-900 min-h-screen text-white">
-      <div className="max-w-7xl mx-auto px-4 py-16">
-        <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-8 bg-red-600 rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
-          <div className="absolute inset-0 opacity-20">
-            {/* Checker pattern or similar decorative bg */}
-            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-              <defs><pattern id="pattern" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M0 40L40 0H20L0 20M40 40V20L20 40" fill="currentColor" fillOpacity="0.2"/></pattern></defs>
-              <rect width="100%" height="100%" fill="url(#pattern)"/>
-            </svg>
+    <div className="bg-slate-900 font-sans text-white pb-16 min-h-[calc(100vh-64px)]">
+      <div className="max-w-[1200px] mx-auto px-4 py-12">
+        <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-8 bg-gradient-to-br from-orange-500 to-red-600 rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden text-left">
+          <div className="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0wIDQwTDQwIDBIMjBMMCAyME00MCA0MFYyMEwyMCA0MCIgZmlsbD0id2hpdGUiIGZpbGwtb3BhY2l0eT0iMC4yIi8+Cjwvc3ZnPg==')]">
           </div>
           
           <div className="relative z-10">
@@ -57,19 +53,15 @@ export function FlashSales() {
           </div>
         </div>
 
-        {/* Product override styles for dark mode */}
-        <div className="flash-sale-grid">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            {flashProducts.map(product => (
-              <div key={product.id} className="relative group">
-                <div className="absolute -top-3 -right-3 z-20 bg-yellow-400 text-gray-900 font-bold px-3 py-1 rounded-full shadow-lg transform rotate-12 group-hover:scale-110 transition">
-                  -20% OFF
-                </div>
-                {/* Wrap ProductCard to slightly alter its look inside the dark theme if needed, but it handles itself okay */}
-                <ProductCard product={product} />
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mt-8">
+          {flashProducts.map(product => (
+            <div key={product.id} className="relative group">
+              <div className="absolute -top-3 -right-3 z-20 bg-yellow-400 text-gray-900 font-bold px-3 py-1 rounded-full shadow-lg transform rotate-12 group-hover:scale-110 transition">
+                -20% OFF
               </div>
-            ))}
-          </div>
+              <ProductCard product={product} />
+            </div>
+          ))}
         </div>
       </div>
     </div>

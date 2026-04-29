@@ -1,12 +1,22 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ShoppingCart, Heart, User, Search, Menu, X, Smartphone } from 'lucide-react';
 import { useStore } from '../../store/useStore';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const cartItemCount = useStore(state => state.cart.reduce((acc, item) => acc + item.quantity, 0));
   const user = useStore(state => state.user);
+  const navigate = useNavigate();
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/products?q=${encodeURIComponent(searchQuery)}`);
+      setIsMenuOpen(false);
+    }
+  };
 
   return (
     <nav className="h-16 bg-white border-b border-slate-200 sticky top-0 z-50 flex-shrink-0 font-sans">
@@ -32,14 +42,16 @@ export function Navbar() {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-4">
-            <div className="relative hidden lg:block">
+            <form onSubmit={handleSearchSubmit} className="relative hidden lg:block">
               <input 
                 type="text" 
                 placeholder="Search budget phones..." 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 className="bg-slate-100 border-none rounded-full px-4 pl-10 py-2 text-sm w-64 focus:ring-2 focus:ring-blue-500 text-slate-800"
               />
                <Search className="w-4 h-4 text-slate-400 absolute left-4 top-2.5" />
-            </div>
+            </form>
 
             <div className="flex items-center gap-1">
               <Link to="/wishlist" className="p-2 hover:bg-slate-100 rounded-full relative transition-colors text-slate-600">
@@ -75,14 +87,16 @@ export function Navbar() {
       {isMenuOpen && (
         <div className="md:hidden border-t border-slate-200 bg-white absolute w-full shadow-lg pb-4">
           <div className="p-4 space-y-4">
-            <div className="relative">
+            <form onSubmit={handleSearchSubmit} className="relative">
               <input 
                 type="text" 
                 placeholder="Search..." 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full bg-slate-50 pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"
               />
               <Search className="w-5 h-5 text-slate-400 absolute left-3 top-3.5" />
-            </div>
+            </form>
             <div className="flex flex-col space-y-1">
               <Link to="/products" className="text-slate-700 font-bold px-4 py-3 hover:bg-slate-50 rounded-xl">All Phones</Link>
               <Link to="/refurbished" className="text-slate-700 font-bold px-4 py-3 hover:bg-slate-50 rounded-xl">Refurbished</Link>

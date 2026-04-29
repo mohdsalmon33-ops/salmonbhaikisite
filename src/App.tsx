@@ -19,6 +19,7 @@ import { FlashSales } from './pages/FlashSales';
 import { Admin } from './pages/Admin';
 import { ImeiCheck } from './pages/ImeiCheck';
 import { BulkOrder } from './pages/BulkOrder';
+import { Wishlist } from './pages/Wishlist';
 import { ScrollToTop } from './components/layout/ScrollToTop';
 
 export default function App() {
@@ -33,6 +34,7 @@ export default function App() {
           <Route path="cart" element={<Cart />} />
           <Route path="checkout" element={<Checkout />} />
           <Route path="compare" element={<Compare />} />
+          <Route path="wishlist" element={<Wishlist />} />
           <Route path="account/orders" element={<OrderHistory />} />
           <Route path="order-tracking" element={<OrderTracking />} />
           <Route path="refurbished" element={<Refurbished />} />

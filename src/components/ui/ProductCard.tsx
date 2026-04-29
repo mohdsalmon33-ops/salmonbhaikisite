@@ -17,67 +17,67 @@ export function ProductCard({ product }: ProductCardProps) {
   const isCompared = compareList.some(item => item.id === product.id);
 
   return (
-    <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 border border-gray-100 flex flex-col h-full overflow-hidden group">
-      <Link to={`/product/${product.id}`} className="relative block aspect-[4/5] bg-gray-50 overflow-hidden">
+    <div className="bg-white rounded-3xl shadow-sm hover:shadow-xl transition-all duration-500 border border-slate-200 flex flex-col h-full overflow-hidden group">
+      <Link to={`/product/${product.id}`} className="relative block aspect-square bg-slate-50 overflow-hidden p-6 flex items-center justify-center">
         {product.isRefurbished && (
-          <div className="absolute top-2 left-2 bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded z-10">
+          <div className="absolute top-4 left-4 bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full z-10 uppercase tracking-widest shadow-sm">
             Refurbished
           </div>
         )}
-        <div className="absolute top-2 right-2 flex flex-col gap-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
+        <div className="absolute top-4 right-4 flex flex-col gap-3 z-10 opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-4 group-hover:translate-x-0 duration-300">
           <button 
             onClick={(e) => { e.preventDefault(); toggleWishlist(product); }}
-            className="p-2 bg-white rounded-full shadow hover:bg-gray-50 transition-colors"
+            className="p-3 bg-white rounded-full shadow-lg hover:bg-slate-50 transition-colors border border-slate-100"
           >
-            <Heart className={cn("w-4 h-4", isWishlisted ? "fill-red-500 text-red-500" : "text-gray-600")} />
+            <Heart className={cn("w-5 h-5", isWishlisted ? "fill-red-500 text-red-500" : "text-slate-400")} />
           </button>
           <button 
             onClick={(e) => { e.preventDefault(); addToCompare(product); }}
-            className={cn("p-2 bg-white rounded-full shadow hover:bg-gray-50 transition-colors", 
-              isCompared ? "text-blue-600" : "text-gray-600")}
+            className={cn("p-3 bg-white rounded-full shadow-lg hover:bg-slate-50 transition-colors border border-slate-100", 
+              isCompared ? "text-indigo-600" : "text-slate-400")}
             title="Add to compare"
           >
-            <RefreshCcw className="w-4 h-4" />
+            <RefreshCcw className="w-5 h-5" />
           </button>
         </div>
         <img 
           src={product.image} 
           alt={product.name} 
-          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          className="w-full h-full object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-110"
           loading="lazy"
         />
       </Link>
       
-      <div className="p-4 flex flex-col flex-grow">
-        <div className="mb-1 text-xs text-gray-500 font-medium tracking-wide uppercase">{product.brand}</div>
-        <Link to={`/product/${product.id}`} className="hover:text-blue-600">
-          <h3 className="font-semibold text-gray-900 line-clamp-1">{product.name}</h3>
+      <div className="p-6 flex flex-col flex-grow bg-white relative z-20">
+        <div className="mb-2 text-[10px] text-slate-400 font-bold tracking-widest uppercase">{product.brand}</div>
+        <Link to={`/product/${product.id}`} className="hover:text-blue-600 transition-colors">
+          <h3 className="text-xl font-bold text-slate-900 leading-tight line-clamp-2">{product.name}</h3>
         </Link>
-        <div className="flex items-center gap-1 mt-1 mb-2">
-          <div className="flex text-yellow-400 text-sm">
-            {'★'.repeat(Math.round(product.rating))}<span className="text-gray-300">{'★'.repeat(5-Math.round(product.rating))}</span>
+        <div className="flex items-center gap-2 mt-2 mb-4">
+          <div className="flex text-amber-400 text-sm">
+            {'★'.repeat(Math.round(product.rating))}<span className="text-slate-200">{'★'.repeat(5-Math.round(product.rating))}</span>
           </div>
-          <span className="text-xs text-gray-500">({product.reviewsCount})</span>
+          <span className="text-xs font-medium text-slate-400">({product.reviewsCount})</span>
         </div>
         
-        <div className="mt-auto pt-3 flex items-end justify-between">
-          <div>
-            <div className="text-lg font-bold text-gray-900">₹{product.price.toLocaleString('en-IN')}</div>
+        <div className="mt-auto flex items-end justify-between pt-4 border-t border-slate-100">
+          <div className="flex flex-col">
+            <div className="text-2xl font-bold tracking-tight text-slate-900">₹{product.price.toLocaleString('en-IN')}</div>
             {product.originalPrice && (
-              <div className="text-xs text-gray-500 line-through">₹{product.originalPrice.toLocaleString('en-IN')}</div>
+              <div className="text-sm font-medium text-slate-400 line-through">₹{product.originalPrice.toLocaleString('en-IN')}</div>
             )}
           </div>
           <button 
             onClick={() => addToCart(product)}
             disabled={product.stockStatus === 'Out of stock'}
             className={cn(
-              "p-2.5 rounded-full text-white transition-transform active:scale-95",
+              "w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300",
               product.stockStatus === 'Out of stock' 
-                ? "bg-gray-300 cursor-not-allowed" 
-                : "bg-blue-600 hover:bg-blue-700 shadow-sm shadow-blue-200"
+                ? "bg-slate-100 text-slate-400 cursor-not-allowed" 
+                : "bg-blue-600 text-white hover:bg-blue-700 shadow-xl shadow-blue-600/20 hover:scale-105 active:scale-95"
             )}
           >
-            <ShoppingCart className="w-4 h-4" />
+            <ShoppingCart className="w-5 h-5" />
           </button>
         </div>
       </div>
